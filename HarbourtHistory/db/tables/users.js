@@ -23,6 +23,41 @@ async function createUser(user) {
     }
 }
 
+async function loginUser({ username, password}) {
+    try {
+        const {
+            rows: [user],
+        } = await client.query(`
+        SELECT *
+        FROM users
+        WHERE username='${username}
+        `);
+
+        if(user) {
+            if(password === user.password){
+                return user;
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+async function getAllUsers() {
+    try {
+        const { rows: users } = await client.query(`
+            SELECT * FROM users;`);
+
+        return users;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
 module.exports = {
-    createUser
+    createUser,
+    loginUser,
+    getAllUsers
 }

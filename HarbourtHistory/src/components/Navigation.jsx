@@ -6,7 +6,7 @@ const Navigation = ({navigate}) => {
   return (
     <Navbar bg="light" expand="lg" className='border'>
       <Container className='align-items-center'>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home">Harbourt History</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
