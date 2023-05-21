@@ -2,7 +2,11 @@
 
 const Stories = () => {
     return (
-        <h1>Stories go here</h1>
+        <div>
+            <h1>Stories go here</h1>
+            <input></input>
+            <button type="submit">submit</button>
+        </div>
     )
 }
 
