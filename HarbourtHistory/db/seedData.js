@@ -3,9 +3,11 @@ const client = require('./index');
 const {
     createUser,
 } = require('./tables');
+const { createPost } = require('./tables/posts');
 
 const {
     createMom,
+    createFirstPost
 } = require('./testData');
 
 async function dropTables() {
@@ -69,11 +71,24 @@ async function createInitialUser() {
     }
 }
 
+async function createInitialPost() {
+    try {
+        console.log('starting to create initial post');
+        const postToCreate = await createFirstPost();
+        const result = await createPost(postToCreate);
+        return result;
+    } catch (error) {
+       console.error('error creating initial post');
+       throw error;
+    }
+}
+
 async function rebuildDB() {
     try {
         await dropTables();
         await createTables();
         await createInitialUser();
+        await createInitialPost();
     } catch (error) {
         console.error('error during rebuildDB');
         throw error;
