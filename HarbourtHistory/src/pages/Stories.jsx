@@ -1,10 +1,9 @@
 import { getAllPosts, createPost } from "../api";
 import { useEffect, useState } from "react";
+
 const Stories = () => {
     const [posts, setPosts] = useState([]);
     const [newPostText, setNewPostText] = useState('');
-
-    console.log(newPostText)
 
     async function getAllPostsHelper(){
         const result = await getAllPosts();

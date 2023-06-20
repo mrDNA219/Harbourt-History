@@ -2,12 +2,17 @@ const client = require('./index');
 
 const {
     createUser,
+    createPerson,
+    createPost,
+    createRelationship
 } = require('./tables');
-const { createPost } = require('./tables/posts');
 
 const {
     createMom,
-    createFirstPost
+    createFirstPost,
+    createFirstPerson,
+    createSecondPerson,
+    createFirstRelationship
 } = require('./testData');
 
 async function dropTables() {
@@ -83,12 +88,51 @@ async function createInitialPost() {
     }
 }
 
+async function createInitialPerson() {
+    try {
+       console.log('starting to create initial person');
+       const personToCreate = await createFirstPerson();
+       const result = await createPerson(personToCreate);
+       return result;
+    } catch (error) {
+        console.error("Error creating initial person");
+        throw error;
+    }
+}
+
+async function createInitialSecondPerson() {
+    try {
+        console.log('starting to create initial second person');
+        const personToCreate = await createSecondPerson();
+        const result = await createPerson(personToCreate);
+        return result;
+    } catch (error) {
+        console.error('Error creating initial second person');
+        throw error;
+    }
+}
+
+async function createInitialRelationship() {
+    try {
+        console.log('starting to create initial relationship');
+        const relationshipToCreate = await createFirstRelationship();
+        const result = await createRelationship(relationshipToCreate);
+        return result;
+    } catch (error) {
+        console.error("Error creating initial relationship");
+        throw error;
+    }
+}
+
 async function rebuildDB() {
     try {
         await dropTables();
         await createTables();
         await createInitialUser();
         await createInitialPost();
+        await createInitialPerson();
+        await createInitialSecondPerson();
+        await createInitialRelationship();
     } catch (error) {
         console.error('error during rebuildDB');
         throw error;

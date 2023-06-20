@@ -16,7 +16,43 @@ const createFirstPost = async () => {
     return post;
 }
 
+const createFirstPerson = async () => {
+    const person = {
+        firstName: 'Sophia',
+        lastName: 'Polin',
+        birthDate: '05-29-1992',
+        gender: 'female'
+    };
+
+    return person;
+}
+
+const createSecondPerson = async () => {
+    const person = {
+        firstName: 'Francis',
+        lastName: 'Harbourt',
+        birthDate: '02-10-1990',
+        gender: 'male'
+    };
+
+    return person;
+}
+
+const createFirstRelationship = async () => {
+
+    const relationship = {
+        personId: 1,
+        relationshipType: 'married',
+        relatedPersonId: 2
+    };
+
+    return relationship;
+}
+
 module.exports = {
     createMom,
-    createFirstPost
+    createFirstPost,
+    createFirstPerson,
+    createSecondPerson,
+    createFirstRelationship
 }

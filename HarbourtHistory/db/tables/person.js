@@ -22,6 +22,24 @@ async function createPerson(person) {
     }
 }
 
+async function getAllPeople() {
+    try {
+        const {
+            rows: people
+        } = await client.query(`
+        SELECT *
+        FROM person;
+        `);
+
+        return people;
+        
+    } catch (error) {
+        console.error("Error getting all people");
+        throw error;
+    }
+}
+
 module.exports ={
     createPerson,
+    getAllPeople
 }
