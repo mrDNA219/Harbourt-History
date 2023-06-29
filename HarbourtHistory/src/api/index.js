@@ -62,3 +62,15 @@ export const getAllPeople = async () => {
     }
 }
 
+export const getAllRelationships = async () => {
+    try {
+        const headers = createHeaders();
+        return await fetch(`${BASE_URL}/relationship`, {
+            headers,
+        }).then(response => response.json());
+    } catch (error) {
+        console.error('there was an error getting all relationships')
+    }
+}
+
+

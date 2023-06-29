@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {createPerson, getAllPeople} from "../api";
+import {createPerson, getAllPeople, getAllRelationships} from "../api";
 
 const Descendancy = () => {
 
@@ -8,6 +8,7 @@ const Descendancy = () => {
     const [birthDate, setBirthDate] = useState(0);
     const [gender, setGender] = useState('');
     const [allPeople, setAllPeople] = useState([]);
+    const [allRelationships, setAllRelationships] = useState([]);
 
     async function getAllPeopleHelper() {
         const result = await getAllPeople();
@@ -16,8 +17,46 @@ const Descendancy = () => {
         }
     }
 
-    
+    async function getAllRelationshipsHelper() {
+        const result = await getAllRelationships();
+        if(result){
+            setAllRelationships(result);
+        }
+    }
 
+    // async function populateNames(allPeople){
+    //     let firstPerson = '';
+    //     let secondPerson = '';
+    //     allRelationships.map(relationship => {
+    //         for(let i = 0; i < allPeople.length; i++){
+    //             let currentPerson = allPeople[i];
+    //             if(currentPerson.id === relationship.personId){
+    //                 firstPerson = `${currentPerson.firstName},${currentPerson.lastName}`
+    //             } else if(currentPerson.id === relationship.relatedPersonId){
+    //                 secondPerson = `${currentPerson.firstName},${currentPerson.lastName}`
+    //             }
+    //         }
+    //     })
+    //     return firstPerson, secondPerson;
+    // }
+    
+    function findNames(relationship, allPeople){
+        let firstPersonId = relationship.personId;
+        let secondPersonId = relationship.relatedPersonId;
+        let people = [];
+        for(let i = 0; i < allPeople.length; i++){
+            let currentPerson = allPeople[i]
+            if(firstPersonId === currentPerson.id){
+                people[0] = `${currentPerson.firstName} ${currentPerson.lastName}`
+            } else if(secondPersonId === currentPerson.id){
+                people[1] = `${currentPerson.firstName} ${currentPerson.lastName}`
+            }
+        }
+        return people;
+    }
+
+    // let peopleToDisplay = allRelationships.map((relationship) => findNames(relationship, allPeople));
+    
     async function handleSubmit(){
         const newPerson = {};
         if(firstName.length){
@@ -36,8 +75,10 @@ const Descendancy = () => {
     }
 
     useEffect(() => {
-        getAllPeopleHelper();
+        getAllPeopleHelper(),
+        getAllRelationshipsHelper()
     }, []);
+
     return (
         <div>
             <h1 className="align-items-center">Create New Person</h1>
@@ -60,6 +101,20 @@ const Descendancy = () => {
                             <p>{person.lastName}</p>
                             <p>{person.birthDate}</p>
                             <p>{person.gender}</p>
+                            {
+                                allRelationships.map(relationship => {
+                                    if(relationship.personId === person.id || relationship.relatedPersonId === person.id){
+                                        let names = findNames(relationship, allPeople)
+                                        return (
+                                            <div key={relationship.id}>
+                                                <h4>Relationship</h4>
+                                                <p>{relationship.relationshipType} to:</p>
+                                                <p>{names[0].includes(person.firstName) ? names[1] : names[0]}</p>
+                                            </div>
+                                        )
+                                    }
+                                })
+                            }
                         </div>
                     )
                 })

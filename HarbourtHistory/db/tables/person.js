@@ -32,14 +32,36 @@ async function getAllPeople() {
         `);
 
         return people;
-        
+
     } catch (error) {
         console.error("Error getting all people");
         throw error;
     }
 }
 
+async function getPersonIdByName(firstName, lastName) {
+    try {
+        const {
+            rows: [user],   
+        } = await client.query (`
+        SELECT id
+        FROM person
+        WHERE firstName=$1
+        AND lastName=$2;
+        `,
+        [firstName, lastName]
+        );
+
+        return user;
+
+    } catch (error) {
+        console.error('Error getting personId by name');
+        throw error;
+    }
+}
+
 module.exports ={
     createPerson,
-    getAllPeople
+    getAllPeople,
+    getPersonIdByName
 }

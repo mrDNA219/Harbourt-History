@@ -31,6 +31,8 @@ async function getAllRelationships() {
     }
 }
 
+
+
 module.exports = {
     createRelationship,
     getAllRelationships

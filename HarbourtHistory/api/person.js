@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {
     getAllPeople,
-    createPerson
+    createPerson,
 } = require('../db/tables');
 
 router.get('/', async (req, res, next) => {
