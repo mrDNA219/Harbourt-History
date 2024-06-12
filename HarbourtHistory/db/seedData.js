@@ -42,6 +42,7 @@ async function createTables() {
         );
         CREATE TABLE posts(
             id SERIAL PRIMARY KEY,
+            "postTitle" VARCHAR(225),
             "postText" TEXT
         );
         CREATE TABLE person(

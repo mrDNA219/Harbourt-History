@@ -23,13 +23,14 @@ export const getAllPosts = async () => {
     }
 }
 
-export const createPost = async (postText) => {
+export const createPost = async (postTitle, postText) => {
     try {
         const headers = createHeaders();
         return await fetch(`${BASE_URL}/posts`, {
             method: 'POST',
             headers,
             body: JSON.stringify({
+                postTitle: postTitle,
                 postText: postText
             }),
         }).then(response => response.json());

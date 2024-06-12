@@ -1,0 +1,22 @@
+body{
+    background-color: seashell;
+}
+.main-content-wrapper{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+.stories-container{
+    width: 100%;
+    margin-top: 1rem;
+    
+    padding: 1rem;
+}
+.story-title{
+    text-align: center;
+    color: #3E885B;
+    font-size: 150%;
+    text-decoration: solid;
+}

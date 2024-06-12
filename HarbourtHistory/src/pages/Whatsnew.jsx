@@ -1,7 +1,6 @@
 import { getAllPosts } from "../api";
 import {useState, useEffect} from 'react';
-
-
+import Container from 'react-bootstrap/Container';
 
 const Whatsnew = () => {
 
@@ -13,20 +12,25 @@ const Whatsnew = () => {
             setPosts(result)
         }
     }
-    console.log(posts)
-    const postToDisplay = posts.pop()
-    console.log(postToDisplay)
+    const postToDisplay = posts.pop();
     useEffect(() => {
         getAllPostsHelper();
     }, []);
 
     return (
-        <div>
-            <h1>What is New</h1>
+        <Container className="stories-container">
+            <h1 className="">Most Recent Post</h1>
             {
-                postToDisplay ? <p>{postToDisplay.postText}</p> : <></>
+                postToDisplay ? 
+                <div className="stories-container">
+                    <h1 className="story-title"></h1>
+                    <p className="story-text">{postToDisplay.postText}</p> 
+                </div>
+                : 
+                <p>There are no stories to display! The most recently written story will appear here.</p>
+
             }
-        </div>
+        </Container>
         
     )
 }

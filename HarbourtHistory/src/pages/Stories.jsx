@@ -1,19 +1,24 @@
 import { getAllPosts, createPost } from "../api";
 import { useEffect, useState } from "react";
+import  Form  from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 const Stories = () => {
     const [posts, setPosts] = useState([]);
+    const [newPostTitle, setNewPostTitle] = useState('');
     const [newPostText, setNewPostText] = useState('');
+
 
     async function getAllPostsHelper(){
         const result = await getAllPosts();
-        if(result){
+        if(result.length > 1){
             setPosts(result)
         }
     }
 
     async function handleSubmit(){
-        await createPost(newPostText);
+        await createPost(newPostTitle, newPostText);
     }
 
     useEffect(() => {
@@ -21,25 +26,34 @@ const Stories = () => {
     }, []);
 
     return (
-        <div>
+        <Container className="main-content-wrapper">
             {
                 posts.map(post => {
                     return (
-                        <div key={post.id}>
-                            <h1>Story #{post.id}</h1>
-                            <p>{post.postText}</p>
-
+                        <div className='stories-container' key={post.id}>
+                            <h1 className="story-title">{post.postTitle}</h1>
+                            <p className="story-text">{post.postText}</p>
                         </div>
                     )
                 })
             }
-            <input onChange={e => setNewPostText(e.target.value)}></input>
-            <button type="submit" onClick={e => {
+            <Form className="stories-container">
+                <Form.Label className="">Create New Story</Form.Label>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Story Title</Form.Label>
+                    <Form.Control onChange={e => setNewPostTitle(e.target.value)}></Form.Control>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Story Text</Form.Label>
+                    <Form.Control as="textarea" rows={6} onChange={e => setNewPostText(e.target.value)}></Form.Control>
+                </Form.Group>
+            <Button type="submit" onClick={e => {
                 e.preventDefault();
                 handleSubmit();
                 getAllPostsHelper();
-            }}>submit</button>
-        </div>
+            }}>Post Story</Button>
+            </Form>
+        </Container>
     )
 }
 
