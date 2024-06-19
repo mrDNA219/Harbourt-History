@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {createPerson, getAllPeople, getAllRelationships} from "../api";
-
+//Design notes on Family Tree
+//Static Harbourt Family Tree. Each person that is mentioned in a story should have a link to their position on the family tree. The link should appear only once and be clearly defined and positioned appropriately.
 const Descendancy = () => {
 
     const [firstName, setFirstName] = useState('');
