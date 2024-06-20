@@ -4,6 +4,10 @@ import  Form  from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
+//Most recent story should display first
+//The post text should be obscured until the title is clicked... want to save page real estate by just having the list of post titles displayed.
+
+
 const Stories = () => {
     const [posts, setPosts] = useState([]);
     const [newPostTitle, setNewPostTitle] = useState('');
